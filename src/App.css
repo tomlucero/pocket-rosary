@@ -49,6 +49,12 @@
     var(--card);
 }
 
+.hero-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
 .hero-kicker,
 .eyebrow,
 .meta-label,
@@ -109,8 +115,25 @@
 
 .mystery-selector button,
 .control-row button,
-.bead-track button {
+.bead-track button,
+.toolbar-toggle {
   font: inherit;
+}
+
+.toolbar-toggle {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 251, 243, 0.92);
+  color: var(--text-strong);
+  padding: 0.55rem 0.95rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.toolbar-toggle.active {
+  background: var(--text-strong);
+  color: #fffaf1;
+  border-color: var(--text-strong);
 }
 
 .mystery-selector button {
@@ -338,6 +361,115 @@
   display: grid;
   gap: 1rem;
   margin-top: 1rem;
+}
+
+.app-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.app-footer p + p {
+  margin-top: 0.35rem;
+}
+
+.app-shell.high-contrast {
+  --text: #f2f4f8;
+  --text-strong: #ffffff;
+  --muted: #d7dbe3;
+  --border: rgba(255, 255, 255, 0.42);
+  --card: rgba(10, 14, 20, 0.96);
+  --soft: #131a24;
+  --accent: #ffd54a;
+  --accent-strong: #ff9f1c;
+  --shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 24px 50px rgba(0, 0, 0, 0.5);
+  color: var(--text);
+}
+
+.app-shell.high-contrast,
+.app-shell.high-contrast body {
+  background: #05070b;
+}
+
+.app-shell.high-contrast .background-glow {
+  display: none;
+}
+
+.app-shell.high-contrast .hero-card {
+  background: var(--card);
+}
+
+.app-shell.high-contrast .mystery-selector button,
+.app-shell.high-contrast .compact-toggle,
+.app-shell.high-contrast .toolbar-toggle,
+.app-shell.high-contrast .control-row .secondary {
+  background: #101722;
+  color: var(--text-strong);
+}
+
+.app-shell.high-contrast .mystery-selector button.selected,
+.app-shell.high-contrast .bead-track button.active {
+  background: rgba(255, 213, 74, 0.16);
+  border-color: rgba(255, 213, 74, 0.7);
+}
+
+.app-shell.high-contrast .bead-dot,
+.app-shell.high-contrast .progress-bar::after,
+.app-shell.high-contrast .control-row .primary {
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+}
+
+.app-shell.high-contrast .hero-meta div,
+.app-shell.high-contrast .mystery-panel,
+.app-shell.high-contrast .prayer-block,
+.app-shell.high-contrast .notes-grid article {
+  background: #101722;
+}
+
+.app-shell.high-contrast .toolbar-toggle.active {
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  color: #111111;
+  border-color: transparent;
+}
+
+.app-shell.high-contrast .progress-copy,
+.app-shell.high-contrast .hero-kicker,
+.app-shell.high-contrast .eyebrow,
+.app-shell.high-contrast .meta-label,
+.app-shell.high-contrast .mystery-label,
+.app-shell.high-contrast .prayer-label,
+.app-shell.high-contrast .mystery-selector small,
+.app-shell.high-contrast .bead-text small {
+  color: var(--muted);
+}
+
+.app-shell.high-contrast .section-progress {
+  color: #ffe082;
+}
+
+.app-shell.high-contrast .compact-toggle,
+.app-shell.high-contrast .toolbar-toggle,
+.app-shell.high-contrast .control-row .secondary,
+.app-shell.high-contrast .mystery-selector button,
+.app-shell.high-contrast .bead-track button {
+  border-color: var(--border);
+}
+
+.app-shell.high-contrast .bead-track button {
+  color: var(--text);
+}
+
+.app-shell.high-contrast .control-row .primary {
+  color: #111111;
+}
+
+.app-shell.high-contrast .progress-bar {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 @media (min-width: 700px) {

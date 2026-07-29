@@ -86,6 +86,7 @@ function App() {
   )
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [isCompactMode, setIsCompactMode] = useState(false)
+  const [isHighContrastMode, setIsHighContrastMode] = useState(false)
 
   const mystery = useMemo(() => getMystery(selectedMystery), [selectedMystery])
   const steps = useMemo(() => buildRosarySteps(mystery), [mystery])
@@ -148,11 +149,23 @@ function App() {
   }
 
   return (
-    <main className="app-shell">
+    <main
+      className={`app-shell${isHighContrastMode ? ' high-contrast' : ''}`}
+    >
       <div className="background-glow background-glow-left" />
       <div className="background-glow background-glow-right" />
 
       <section className="hero-card">
+        <div className="hero-toolbar">
+          <button
+            type="button"
+            className={`toolbar-toggle${isHighContrastMode ? ' active' : ''}`}
+            onClick={() => setIsHighContrastMode((current) => !current)}
+            aria-pressed={isHighContrastMode}
+          >
+            {isHighContrastMode ? 'Standard contrast' : 'High contrast'}
+          </button>
+        </div>
         <p className="hero-kicker">Pocket Rosary</p>
         <h1>A calm, tap-by-tap rosary companion for daily prayer.</h1>
         <p className="hero-copy">
@@ -270,6 +283,11 @@ function App() {
           </p>
         </article>
       </section>
+
+      <footer className="app-footer">
+        <p>Pocket Rosary v0.1.0</p>
+        <p>Made with ❤️, TypeScript, and a little help from AI.</p>
+      </footer>
     </main>
   )
 }
