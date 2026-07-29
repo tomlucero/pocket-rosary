@@ -11,6 +11,8 @@ type MysteryDefinition = {
 }
 
 export type RosaryStep = {
+  groupId: string
+  groupLabel: string
   section: string
   title: string
   beadLabel: string
@@ -175,6 +177,8 @@ export function getDefaultMysteryKey(date: Date): MysteryKey {
 export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
   const openingSteps: RosaryStep[] = [
     {
+      groupId: 'opening',
+      groupLabel: 'Opening prayers',
       section: 'Opening',
       title: 'Sign of the Cross',
       beadLabel: 'Crucifix',
@@ -182,6 +186,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
       prayer: PRAYERS.signOfCross,
     },
     {
+      groupId: 'opening',
+      groupLabel: 'Opening prayers',
       section: 'Opening',
       title: "Apostles' Creed",
       beadLabel: 'Crucifix',
@@ -189,6 +195,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
       prayer: PRAYERS.apostlesCreed,
     },
     {
+      groupId: 'opening',
+      groupLabel: 'Opening prayers',
       section: 'Opening',
       title: 'Our Father',
       beadLabel: 'First large bead',
@@ -196,6 +204,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
       prayer: PRAYERS.ourFather,
     },
     {
+      groupId: 'opening',
+      groupLabel: 'Opening prayers',
       section: 'Opening',
       title: 'Hail Mary',
       beadLabel: 'Preparation bead 1',
@@ -203,6 +213,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
       prayer: PRAYERS.hailMary,
     },
     {
+      groupId: 'opening',
+      groupLabel: 'Opening prayers',
       section: 'Opening',
       title: 'Hail Mary',
       beadLabel: 'Preparation bead 2',
@@ -210,6 +222,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
       prayer: PRAYERS.hailMary,
     },
     {
+      groupId: 'opening',
+      groupLabel: 'Opening prayers',
       section: 'Opening',
       title: 'Hail Mary',
       beadLabel: 'Preparation bead 3',
@@ -217,6 +231,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
       prayer: PRAYERS.hailMary,
     },
     {
+      groupId: 'opening',
+      groupLabel: 'Opening prayers',
       section: 'Opening',
       title: 'Glory Be',
       beadLabel: 'Connector',
@@ -231,6 +247,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
 
     const steps: RosaryStep[] = [
       {
+        groupId: `decade-${decadeNumber}`,
+        groupLabel: `Decade ${decadeNumber}`,
         section,
         title: `Announce ${mysteryEntry.title}`,
         beadLabel: `Decade ${decadeNumber} marker`,
@@ -243,6 +261,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
 
     for (let beadNumber = 1; beadNumber <= 10; beadNumber += 1) {
       steps.push({
+        groupId: `decade-${decadeNumber}`,
+        groupLabel: `Decade ${decadeNumber}`,
         section,
         title: 'Hail Mary',
         beadLabel: `Decade ${decadeNumber}, bead ${beadNumber}`,
@@ -255,6 +275,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
 
     steps.push(
       {
+        groupId: `decade-${decadeNumber}`,
+        groupLabel: `Decade ${decadeNumber}`,
         section,
         title: 'Glory Be',
         beadLabel: `Decade ${decadeNumber} closing`,
@@ -264,6 +286,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
         mysteryFocus: mysteryEntry.focus,
       },
       {
+        groupId: `decade-${decadeNumber}`,
+        groupLabel: `Decade ${decadeNumber}`,
         section,
         title: 'Fatima Prayer',
         beadLabel: `Decade ${decadeNumber} closing`,
@@ -281,6 +305,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
     ...openingSteps,
     ...decadeSteps,
     {
+      groupId: 'closing',
+      groupLabel: 'Closing prayers',
       section: 'Closing',
       title: 'Hail Holy Queen',
       beadLabel: 'Final medal',
@@ -288,6 +314,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
       prayer: PRAYERS.hailHolyQueen,
     },
     {
+      groupId: 'closing',
+      groupLabel: 'Closing prayers',
       section: 'Closing',
       title: 'Closing Prayer',
       beadLabel: 'Final medal',
@@ -295,6 +323,8 @@ export function buildRosarySteps(mystery: MysteryDefinition): RosaryStep[] {
       prayer: PRAYERS.closingPrayer,
     },
     {
+      groupId: 'closing',
+      groupLabel: 'Closing prayers',
       section: 'Closing',
       title: 'Sign of the Cross',
       beadLabel: 'Crucifix',

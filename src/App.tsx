@@ -10,11 +10,42 @@ import {
   type RosaryStep,
 } from './data/rosary'
 
-function StepCard({ step }: { step: RosaryStep }) {
+type StepGroup = {
+  id: string
+  label: string
+  detail?: string
+  startIndex: number
+  endIndex: number
+}
+
+function StepCard({
+  step,
+  progressLabel,
+  completionRatio,
+  sectionProgressLabel,
+}: {
+  step: RosaryStep
+  progressLabel: string
+  completionRatio: number
+  sectionProgressLabel: string
+}) {
   return (
     <section className="step-card">
+      <div className="step-progress">
+        <div className="step-progress-header">
+          <p className="eyebrow">Current prayer</p>
+          <strong>{progressLabel}</strong>
+        </div>
+        <div
+          className="progress-bar"
+          aria-hidden="true"
+          style={{ ['--progress' as string]: `${completionRatio}%` }}
+        />
+      </div>
       <p className="eyebrow">{step.section}</p>
       <h2>{step.title}</h2>
+      <p className="current-bead">{step.beadLabel}</p>
+      <p className="section-progress">{sectionProgressLabel}</p>
       <p className="step-instruction">{step.instruction}</p>
       {step.mysteryTitle ? (
         <div className="mystery-panel">
@@ -42,6 +73,45 @@ function App() {
   const currentStep = steps[currentStepIndex]
   const progressLabel = getStepProgressLabel(currentStepIndex, steps.length)
   const completionRatio = ((currentStepIndex + 1) / steps.length) * 100
+  const stepGroups = useMemo(() => {
+    return steps.reduce<StepGroup[]>((groups, step, index) => {
+      const lastGroup = groups[groups.length - 1]
+      if (lastGroup && lastGroup.id === step.groupId) {
+        lastGroup.endIndex = index
+        return groups
+      }
+
+      groups.push({
+        id: step.groupId,
+        label: step.groupLabel,
+        detail: step.mysteryTitle,
+        startIndex: index,
+        endIndex: index,
+      })
+
+      return groups
+    }, [])
+  }, [steps])
+
+  const activeGroup = stepGroups.find(
+    (group) =>
+      currentStepIndex >= group.startIndex && currentStepIndex <= group.endIndex,
+  )
+
+  const sectionProgressLabel = useMemo(() => {
+    if (!activeGroup) {
+      return ''
+    }
+
+    const currentInGroup = currentStepIndex - activeGroup.startIndex + 1
+    const totalInGroup = activeGroup.endIndex - activeGroup.startIndex + 1
+
+    if (activeGroup.id.startsWith('decade-') && currentStep.title === 'Hail Mary') {
+      return `${activeGroup.label} • Hail Mary ${currentInGroup - 1} of 10`
+    }
+
+    return `${activeGroup.label} • ${currentInGroup} of ${totalInGroup}`
+  }, [activeGroup, currentStep.title, currentStepIndex])
 
   function selectMystery(nextMystery: MysteryKey) {
     setSelectedMystery(nextMystery)
@@ -101,45 +171,44 @@ function App() {
         ))}
       </section>
 
+      <StepCard
+        step={currentStep}
+        progressLabel={progressLabel}
+        completionRatio={completionRatio}
+        sectionProgressLabel={sectionProgressLabel}
+      />
+
       <section className="progress-card">
         <div className="progress-header">
           <div>
             <p className="eyebrow">Rosary path</p>
-            <h2>{mystery.name}</h2>
+            <h2>Jump to any bead</h2>
           </div>
           <p className="progress-copy">
-            Tap each bead as you finish the prayer. The next step is always
-            ready.
+            The active step stays above. Use this list only when you want to
+            move around the rosary.
           </p>
         </div>
 
-        <div
-          className="progress-bar"
-          aria-hidden="true"
-          style={{ ['--progress' as string]: `${completionRatio}%` }}
-        />
-
-        <ol className="bead-track" aria-label="Rosary steps">
-          {steps.map((step, index) => (
-            <li key={`${step.title}-${index}`}>
+        <ol className="bead-track" aria-label="Rosary sections">
+          {stepGroups.map((group) => (
+            <li key={group.id}>
               <button
                 type="button"
-                className={index === currentStepIndex ? 'active' : ''}
-                onClick={() => setCurrentStepIndex(index)}
-                aria-current={index === currentStepIndex ? 'step' : undefined}
+                className={activeGroup?.id === group.id ? 'active' : ''}
+                onClick={() => setCurrentStepIndex(group.startIndex)}
+                aria-current={activeGroup?.id === group.id ? 'step' : undefined}
               >
                 <span className="bead-dot" />
                 <span className="bead-text">
-                  <strong>{step.beadLabel}</strong>
-                  <small>{step.title}</small>
+                  <strong>{group.label}</strong>
+                  <small>{group.detail ?? `${group.endIndex - group.startIndex + 1} prayers`}</small>
                 </span>
               </button>
             </li>
           ))}
         </ol>
       </section>
-
-      <StepCard step={currentStep} />
 
       <section className="control-row">
         <button
