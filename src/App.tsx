@@ -23,18 +23,32 @@ function StepCard({
   progressLabel,
   completionRatio,
   sectionProgressLabel,
+  isCompact,
+  onToggleCompact,
 }: {
   step: RosaryStep
   progressLabel: string
   completionRatio: number
   sectionProgressLabel: string
+  isCompact: boolean
+  onToggleCompact: () => void
 }) {
   return (
-    <section className="step-card">
+    <section className={`step-card${isCompact ? ' compact' : ''}`}>
       <div className="step-progress">
         <div className="step-progress-header">
           <p className="eyebrow">Current prayer</p>
-          <strong>{progressLabel}</strong>
+          <div className="step-progress-actions">
+            <strong>{progressLabel}</strong>
+            <button
+              type="button"
+              className="compact-toggle"
+              onClick={onToggleCompact}
+              aria-expanded={!isCompact}
+            >
+              {isCompact ? 'Show prayer' : 'Compact'}
+            </button>
+          </div>
         </div>
         <div
           className="progress-bar"
@@ -46,7 +60,6 @@ function StepCard({
       <h2>{step.title}</h2>
       <p className="current-bead">{step.beadLabel}</p>
       <p className="section-progress">{sectionProgressLabel}</p>
-      <p className="step-instruction">{step.instruction}</p>
       {step.mysteryTitle ? (
         <div className="mystery-panel">
           <p className="mystery-label">Mystery</p>
@@ -54,10 +67,15 @@ function StepCard({
           <p>{step.mysteryFocus}</p>
         </div>
       ) : null}
-      <div className="prayer-block">
-        <p className="prayer-label">Prayer</p>
-        <p>{step.prayer}</p>
-      </div>
+      {isCompact ? null : (
+        <>
+          <p className="step-instruction">{step.instruction}</p>
+          <div className="prayer-block">
+            <p className="prayer-label">Prayer</p>
+            <p>{step.prayer}</p>
+          </div>
+        </>
+      )}
     </section>
   )
 }
@@ -67,6 +85,7 @@ function App() {
     getDefaultMysteryKey(new Date()),
   )
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const [isCompactMode, setIsCompactMode] = useState(false)
 
   const mystery = useMemo(() => getMystery(selectedMystery), [selectedMystery])
   const steps = useMemo(() => buildRosarySteps(mystery), [mystery])
@@ -176,6 +195,8 @@ function App() {
         progressLabel={progressLabel}
         completionRatio={completionRatio}
         sectionProgressLabel={sectionProgressLabel}
+        isCompact={isCompactMode}
+        onToggleCompact={() => setIsCompactMode((current) => !current)}
       />
 
       <section className="progress-card">

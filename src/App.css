@@ -238,6 +238,16 @@
   font-size: 1.02rem;
 }
 
+.compact-toggle {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 251, 243, 0.9);
+  color: var(--text-strong);
+  padding: 0.45rem 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
 .step-progress {
   margin-bottom: 1rem;
 }
@@ -248,6 +258,12 @@
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 0.5rem;
+}
+
+.step-progress-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .step-progress-header strong,
@@ -264,6 +280,18 @@
 .section-progress {
   margin-bottom: 0.75rem;
   color: var(--accent-strong);
+}
+
+.step-card.compact {
+  padding-bottom: 1rem;
+}
+
+.step-card.compact h2 {
+  margin-bottom: 0.45rem;
+}
+
+.step-card.compact .mystery-panel {
+  margin-top: 0.75rem;
 }
 
 .mystery-panel,
@@ -348,5 +376,11 @@
 
   .step-card {
     top: 0.5rem;
+  }
+
+  .step-progress-header,
+  .step-progress-actions {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
