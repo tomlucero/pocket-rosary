@@ -1,0 +1,313 @@
+.app-shell {
+  position: relative;
+  width: min(100%, 34rem);
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+
+.background-glow {
+  position: fixed;
+  inset: auto;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.background-glow-left {
+  top: -3rem;
+  left: -5rem;
+  background: rgba(214, 168, 92, 0.32);
+}
+
+.background-glow-right {
+  right: -5rem;
+  bottom: 20%;
+  background: rgba(122, 151, 94, 0.2);
+}
+
+.hero-card,
+.progress-card,
+.step-card,
+.notes-grid article {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+}
+
+.hero-card {
+  border-radius: 2rem;
+  padding: 1.5rem;
+  background:
+    radial-gradient(circle at top, rgba(246, 237, 220, 0.9), transparent 60%),
+    var(--card);
+}
+
+.hero-kicker,
+.eyebrow,
+.meta-label,
+.mystery-label,
+.prayer-label,
+.progress-copy,
+.mystery-selector small,
+.bead-text small {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+.hero-kicker,
+.eyebrow,
+.meta-label,
+.mystery-label,
+.prayer-label {
+  color: var(--muted);
+}
+
+.hero-copy {
+  max-width: 38ch;
+}
+
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.hero-meta div,
+.mystery-panel,
+.prayer-block,
+.notes-grid article {
+  border-radius: 1.25rem;
+  background: var(--soft);
+  padding: 0.95rem 1rem;
+}
+
+.hero-meta strong,
+.bead-text strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.mystery-selector {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.mystery-selector button,
+.control-row button,
+.bead-track button {
+  font: inherit;
+}
+
+.mystery-selector button {
+  border: 1px solid var(--border);
+  border-radius: 1.15rem;
+  background: rgba(253, 250, 244, 0.86);
+  color: var(--text);
+  padding: 0.9rem;
+  text-align: left;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.mystery-selector button span {
+  display: block;
+  color: var(--text-strong);
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.mystery-selector button.selected {
+  border-color: var(--accent);
+  background: rgba(241, 228, 205, 0.92);
+  transform: translateY(-1px);
+}
+
+.progress-card {
+  border-radius: 1.75rem;
+  padding: 1.25rem;
+}
+
+.progress-header {
+  display: grid;
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.progress-copy {
+  color: var(--muted);
+  margin: 0;
+}
+
+.progress-bar {
+  height: 0.55rem;
+  border-radius: 999px;
+  background: rgba(138, 121, 89, 0.15);
+  overflow: hidden;
+  margin: 1rem 0 1.25rem;
+}
+
+.progress-bar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  width: var(--progress);
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+}
+
+.bead-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.bead-track button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+
+.bead-track button.active {
+  background: rgba(241, 228, 205, 0.65);
+  border-color: rgba(138, 121, 89, 0.2);
+}
+
+.bead-dot {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+  box-shadow: 0 0 0 0.25rem rgba(168, 135, 76, 0.12);
+}
+
+.bead-text small {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--muted);
+}
+
+.step-card {
+  border-radius: 1.75rem;
+  padding: 1.4rem;
+  margin-top: 1rem;
+}
+
+.step-card h2,
+.step-card h3,
+.notes-grid h2 {
+  margin-top: 0.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.step-instruction {
+  color: var(--text-strong);
+  font-size: 1.02rem;
+}
+
+.mystery-panel,
+.prayer-block {
+  margin-top: 1rem;
+}
+
+.control-row {
+  position: sticky;
+  bottom: 0.75rem;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.control-row button {
+  border: none;
+  border-radius: 999px;
+  padding: 1rem 1.1rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+}
+
+.control-row .primary {
+  color: #fffaf1;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+}
+
+.control-row .secondary {
+  color: var(--text-strong);
+  background: rgba(255, 251, 243, 0.9);
+  border: 1px solid var(--border);
+}
+
+.control-row button:disabled {
+  opacity: 0.55;
+}
+
+.notes-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 700px) {
+  .notes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .progress-header {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding-inline: 0.85rem;
+  }
+
+  .hero-card,
+  .progress-card,
+  .step-card,
+  .notes-grid article {
+    border-radius: 1.45rem;
+  }
+
+  .hero-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .mystery-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .control-row {
+    grid-template-columns: 1fr;
+  }
+}
